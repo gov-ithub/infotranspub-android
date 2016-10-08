@@ -14,10 +14,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".route.RouteActivity"
-            android:label="@string/title_activity_route">
-        </activity>
+        <activity android:name=".route.RouteActivity" android:theme="@style/AppTheme.NoActionBar" android:label="@string/title_activity_route" />
     </application>
 
 </manifest>
