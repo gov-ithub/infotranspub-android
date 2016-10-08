@@ -7,8 +7,6 @@ import ro.gov.httpithub.infotransport.R;
 import ro.gov.httpithub.infotransport.utils.ActivityUtils;
 
 public class RouteActivity extends AppCompatActivity {
-    private RoutePresenter mRoutePresenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +20,6 @@ public class RouteActivity extends AppCompatActivity {
                     getSupportFragmentManager(), routeFragment, R.id.contentFrame);
         }
 
-        this.mRoutePresenter = new RoutePresenter(routeFragment);
+        new RoutePresenter(routeFragment);
     }
 }

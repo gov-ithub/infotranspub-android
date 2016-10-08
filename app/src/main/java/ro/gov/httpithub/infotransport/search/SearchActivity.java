@@ -8,7 +8,7 @@ import ro.gov.httpithub.infotransport.utils.ActivityUtils;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private SearchContract.Presenter mSearchPresenter;
+    public static final int REQUEST_ROUTE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,6 @@ public class SearchActivity extends AppCompatActivity {
                     getSupportFragmentManager(), searchFragment, R.id.contentFrame);
         }
 
-        this.mSearchPresenter = new SearchPresenter(searchFragment);
+        new SearchPresenter(searchFragment);
     }
 }

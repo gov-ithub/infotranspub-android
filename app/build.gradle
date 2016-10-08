@@ -31,7 +31,8 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.google.guava:guava:$rootProject.guavaVersion"
 
-    // Dependencies for unit tests
+    // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"
-    compile 'com.android.support:support-v4:24.2.1'
+    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
 }
