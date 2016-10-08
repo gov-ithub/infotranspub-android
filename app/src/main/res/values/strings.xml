@@ -3,4 +3,5 @@
     <string name="title_activity_route">Route</string>
 
     <string name="hello_search">Hello search fragment</string>
+    <string name="hello_route">Hello route fragment</string>
 </resources>

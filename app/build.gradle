@@ -33,4 +33,5 @@ dependencies {
 
     // Dependencies for unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"
+    compile 'com.android.support:support-v4:24.2.1'
 }

@@ -11,14 +11,13 @@
         <activity android:name=".search.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".route.RouteActivity"
-            android:label="@string/title_activity_route"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_route">
+        </activity>
     </application>
 
 </manifest>
