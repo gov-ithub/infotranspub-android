@@ -26,10 +26,12 @@ dependencies {
     })
 
     // App's dependencies, including test
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"

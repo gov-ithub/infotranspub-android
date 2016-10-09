@@ -4,4 +4,7 @@
 
     <string name="hello_search">Hello search fragment</string>
     <string name="hello_route">Hello route fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
