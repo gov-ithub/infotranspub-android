@@ -13,4 +13,10 @@ class SearchPresenter implements SearchContract.Presenter {
     public void start() {
         // do something
     }
+
+    @Override
+    public void getRoute() {
+        // TODO: get the route via an api call
+        mSearchView.showRoute();
+    }
 }
