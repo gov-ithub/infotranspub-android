@@ -3,4 +3,24 @@
     <string name="title_activity_route">Route</string>
 
     <string name="hello_search">Hello search fragment</string>
+
+    <string-array name="City">
+        <item>Bucuresti</item>
+        <item>Iasi</item>
+        <item>Undeva departe</item>
+    </string-array>
+
+    <string-array name="From">
+        <item>Sos Pantelimon</item>
+        <item>Sos N.Grigorescu</item>
+        <item>Codri Neamtului</item>
+    </string-array>
+
+    <string-array name="To">
+        <item>Dristor</item>
+        <item>Faur</item>
+        <item>Piata Obor</item>
+    </string-array>
+
+
 </resources>
