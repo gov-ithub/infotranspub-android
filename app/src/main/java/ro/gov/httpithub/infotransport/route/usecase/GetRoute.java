@@ -10,11 +10,11 @@ public class GetRoute {
     public static final class RequestValues {
         private final String cityId;
 
-        private final int startId;
+        private final String startId;
 
-        private final int endId;
+        private final String endId;
 
-        public RequestValues(String cityId, int startId, int endId) {
+        public RequestValues(String cityId, String startId, String endId) {
             this.cityId = cityId;
             this.startId = startId;
             this.endId = endId;
@@ -22,9 +22,9 @@ public class GetRoute {
 
         public String getCityId() { return cityId; }
 
-        public int getStartId() { return startId; }
+        String getStartId() { return startId; }
 
-        public int getEndId() { return endId; }
+        String getEndId() { return endId; }
     }
 
     private RouteRepository mRouteRepository;

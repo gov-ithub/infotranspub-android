@@ -81,6 +81,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
         mStartSpinner = (Spinner) root.findViewById(R.id.startSpn);
         mStartSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -112,7 +113,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     }
 
     @Override
-    public void showRoute(String cityId, int startId, int stopId) {
+    public void showRoute(String cityId, String startId, String stopId) {
         Intent intent = new Intent(getContext(), RouteActivity.class);
         intent.putExtra(RouteActivity.EXTRA_CITY_ID, cityId);
         intent.putExtra(RouteActivity.EXTRA_START_ID, startId);

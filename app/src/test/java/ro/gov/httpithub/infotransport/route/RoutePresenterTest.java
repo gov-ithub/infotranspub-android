@@ -28,14 +28,14 @@ public class RoutePresenterTest {
     public void setupRoutePresenter() {
         MockitoAnnotations.initMocks(this);
 
-        mRoutePresenter = new RoutePresenter(mRouteView, mRouteRepository, "sibiu", 42, 43, new ImmediateSchedulerProvider());
+        mRoutePresenter = new RoutePresenter(mRouteView, mRouteRepository, "sibiu", "42", "43", new ImmediateSchedulerProvider());
     }
 
     @Test
     public void subscribe() {
         List<Stop> mockStops = new ArrayList<>(0);
 
-        when(mRouteRepository.routes("sibiu", 42, 43)).thenReturn(Observable.just(mockStops));
+        when(mRouteRepository.routes("sibiu", "42", "43")).thenReturn(Observable.just(mockStops));
 
         mRoutePresenter.subscribe();
     }

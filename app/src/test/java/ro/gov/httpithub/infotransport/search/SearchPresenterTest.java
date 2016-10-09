@@ -30,6 +30,6 @@ public class SearchPresenterTest {
 
         mSearchPresenter.showRoute();
 
-        verify(mSearchView).showRoute("sibiu", 42, 43);
+        verify(mSearchView).showRoute("sibiu", "42", "44");
     }
 }

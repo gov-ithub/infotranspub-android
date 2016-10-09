@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:text="Search"
+            android:text="@string/search"
             android:id="@+id/searchBtn"
             android:layout_height="wrap_content"
             android:layout_width="299dp"
@@ -64,33 +64,5 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="16dp" />
 
-        <TextView
-            android:text="City"
-            android:layout_width="58dp"
-            android:layout_height="27dp"
-            tools:layout_editor_absoluteX="0dp"
-            android:id="@+id/cityTxtView"
-            android:textStyle="normal|bold"
-            app:layout_constraintBottom_toTopOf="@+id/citySpn"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:text="From:"
-            android:layout_width="53dp"
-            android:layout_height="25dp"
-            tools:layout_editor_absoluteX="0dp"
-            android:id="@+id/startTxtView"
-            app:layout_constraintBottom_toTopOf="@+id/startSpn"
-            android:layout_marginBottom="8dp"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:text="To:"
-            android:layout_width="56dp"
-            android:layout_height="28dp"
-            tools:layout_editor_absoluteX="0dp"
-            android:id="@+id/stopTxtView"
-            app:layout_constraintBottom_toTopOf="@+id/stopSpn"
-            android:textStyle="normal|bold" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

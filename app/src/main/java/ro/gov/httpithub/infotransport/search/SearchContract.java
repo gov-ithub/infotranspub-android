@@ -7,7 +7,7 @@ import ro.gov.httpithub.infotransport.BaseView;
 
 interface SearchContract {
     interface View extends BaseView<SearchContract.Presenter> {
-        void showRoute(String cityId, int startId, int stopId);
+        void showRoute(String cityId, String startId, String stopId);
 
         void populateCities(List<String> cities);
 

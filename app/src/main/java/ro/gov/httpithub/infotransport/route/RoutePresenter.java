@@ -21,8 +21,8 @@ class RoutePresenter implements RouteContract.Presenter {
     private final CompositeSubscription mSubscriptions;
 
     private String mCityId;
-    private int mStartId;
-    private int mEndId;
+    private String mStartId;
+    private String mEndId;
 
     @NonNull
     private final BaseSchedulerProvider mSchedulerProvider;
@@ -35,7 +35,7 @@ class RoutePresenter implements RouteContract.Presenter {
 
     RoutePresenter(@NonNull RouteContract.View view,
                    @NonNull RouteRepository routeRepository,
-                   String cityId, int startId, int endId,
+                   String cityId, String startId, String endId,
                    @NonNull BaseSchedulerProvider schedulerProvider) {
         mView = view;
         mRouteRepository = checkNotNull(routeRepository, "routeRepository cannot be null, at least send the mock one");

@@ -81,7 +81,7 @@ class SearchPresenter implements SearchContract.Presenter {
                         // Todo add lambda support and retrolamda, and eliminate duplication
                         mCities = cities;
                         List<String> cityNames = new ArrayList<>();
-                        for (City city: cities) {
+                        for (City city : cities) {
                             cityNames.add(city.getName());
                         }
 
@@ -99,8 +99,8 @@ class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void showRoute() {
         String cityId = mCities.get(mCityPosition).getId();
-        int startId = mStops.get(mStartPosition).getId();
-        int stopId = mStops.get(mEndPosition).getId();
+        String startId = mStops.get(mStartPosition).getId();
+        String stopId = mStops.get(mEndPosition).getId();
 
         mSearchView.showRoute(cityId, startId, stopId);
     }

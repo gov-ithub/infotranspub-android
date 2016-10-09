@@ -10,7 +10,7 @@ public class ApiRouteRepository extends BaseRepository implements RouteRepositor
         super(baseUrl);
     }
 
-    public Observable<List<Stop>> routes(String cityId, int startStopId, int endStopId) {
+    public Observable<List<Stop>> routes(String cityId, String startStopId, String endStopId) {
         return getContract(RouteRepository.class).routes(cityId, startStopId, endStopId);
     }
 }

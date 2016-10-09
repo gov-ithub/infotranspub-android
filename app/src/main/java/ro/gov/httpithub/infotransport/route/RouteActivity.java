@@ -23,8 +23,8 @@ public class RouteActivity extends AppCompatActivity {
 
         // Get params
         String cityId = getIntent().getStringExtra(EXTRA_CITY_ID);
-        int startId = getIntent().getIntExtra(EXTRA_START_ID, 0);
-        int endId = getIntent().getIntExtra(EXTRA_END_ID, 0);
+        String startId = getIntent().getStringExtra(EXTRA_START_ID);
+        String endId = getIntent().getStringExtra(EXTRA_END_ID);
 
         // Set fragment
         RouteFragment routeFragment =

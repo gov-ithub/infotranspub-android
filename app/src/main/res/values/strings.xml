@@ -2,5 +2,7 @@
     <string name="app_name">Info Transport</string>
     <string name="title_activity_route">Route</string>
 
+    <string name="search">Search</string>
+
     <string name="hello_search">Hello search fragment</string>
 </resources>
