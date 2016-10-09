@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import ro.gov.httpithub.infotransport.R;
 import ro.gov.httpithub.infotransport.route.RouteActivity;
@@ -47,12 +48,9 @@ public class SearchFragment extends Fragment implements SearchContract.View {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
 
-        // Set up floating action button
-        FloatingActionButton fab =
-                (FloatingActionButton) getActivity().findViewById(R.id.fab_get_route);
-
-        fab.setImageResource(R.drawable.ic_add);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // Set up search action button
+        Button searchButton = (Button) root.findViewById(R.id.searchBtn);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.getRoute();

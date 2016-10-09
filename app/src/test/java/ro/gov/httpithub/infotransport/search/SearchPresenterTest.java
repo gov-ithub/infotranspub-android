@@ -20,7 +20,6 @@ public class SearchPresenterTest {
     public void setupSearchPresenter() {
         MockitoAnnotations.initMocks(this);
 
-        // mock view
         mSearchPresenter = new SearchPresenter(mSearchView);
     }
 
