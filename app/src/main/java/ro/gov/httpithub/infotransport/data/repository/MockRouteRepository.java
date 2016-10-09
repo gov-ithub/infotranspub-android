@@ -9,7 +9,7 @@ import rx.Observable;
 
 public class MockRouteRepository implements RouteRepository {
     @Override
-    public Observable<List<Stop>> routes(@Query("start_stop_id") int startStopId, @Query("end_stop_id") int endStopId) {
-        return Observable.just(Arrays.asList(new Stop("Name", 1), new Stop("Other name", 2)));
+    public Observable<List<Stop>> routes(String cityId, @Query("start_stop_id") int startStopId, @Query("end_stop_id") int endStopId) {
+        return Observable.just(Arrays.asList(new Stop(1, "Name", 1), new Stop(2, "Other name", 2)));
     }
 }

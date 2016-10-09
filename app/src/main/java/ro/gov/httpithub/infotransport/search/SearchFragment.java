@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
 
-        // Setup city spinner
+        // Setup spinners
         mCitySpinner = (Spinner) root.findViewById(R.id.citySpn);
         mCitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -71,7 +71,28 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         });
 
         mStopSpinner = (Spinner) root.findViewById(R.id.stopSpn);
+        mStopSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.setEndPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         mStartSpinner = (Spinner) root.findViewById(R.id.startSpn);
+        mStartSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.setStartPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         // Setup search action button
         Button searchButton = (Button) root.findViewById(R.id.searchBtn);
@@ -91,8 +112,11 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     }
 
     @Override
-    public void showRoute() {
+    public void showRoute(String cityId, int startId, int stopId) {
         Intent intent = new Intent(getContext(), RouteActivity.class);
+        intent.putExtra(RouteActivity.EXTRA_CITY_ID, cityId);
+        intent.putExtra(RouteActivity.EXTRA_START_ID, startId);
+        intent.putExtra(RouteActivity.EXTRA_END_ID, stopId);
         startActivityForResult(intent, SearchActivity.REQUEST_ROUTE);
     }
 

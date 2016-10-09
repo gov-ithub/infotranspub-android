@@ -21,6 +21,11 @@ class SearchPresenter implements SearchContract.Presenter {
     private static final String TAG = "SEARCH_PRESENTER";
 
     private List<City> mCities;
+    private List<Stop> mStops;
+
+    private int mStartPosition;
+    private int mEndPosition;
+    private int mCityPosition;
 
     @NonNull
     private final SearchContract.View mSearchView;
@@ -93,12 +98,17 @@ class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void showRoute() {
-        mSearchView.showRoute();
+        String cityId = mCities.get(mCityPosition).getId();
+        int startId = mStops.get(mStartPosition).getId();
+        int stopId = mStops.get(mEndPosition).getId();
+
+        mSearchView.showRoute(cityId, startId, stopId);
     }
 
     @Override
     public void getStops(int position) {
-        City city = mCities.get(position);
+        mCityPosition = position;
+        City city = mCities.get(mCityPosition);
 
         Subscription subscription = mStopsRepository.get(city.getId())
                 .subscribeOn(mSchedulerProvider.computation())
@@ -118,6 +128,7 @@ class SearchPresenter implements SearchContract.Presenter {
 
                     @Override
                     public void onNext(List<Stop> stops) {
+                        mStops = stops;
                         // Todo add lambda support and retrolamda
                         List<String> stopNames = new ArrayList<>();
                         for (Stop stop : stops) {
@@ -128,5 +139,15 @@ class SearchPresenter implements SearchContract.Presenter {
                     }
                 });
         mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void setStartPosition(int position) {
+        mStartPosition = position;
+    }
+
+    @Override
+    public void setEndPosition(int position) {
+        mEndPosition = position;
     }
 }

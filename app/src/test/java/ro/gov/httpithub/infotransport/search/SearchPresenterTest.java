@@ -24,8 +24,12 @@ public class SearchPresenterTest {
 
     @Test
     public void getRoute_showsRouteUI() {
+        mSearchPresenter.setStartPosition(42);
+        mSearchPresenter.setEndPosition(43);
+        mSearchPresenter.getStops(42);
+
         mSearchPresenter.showRoute();
 
-        verify(mSearchView).showRoute();
+        verify(mSearchView).showRoute("sibiu", 42, 43);
     }
 }

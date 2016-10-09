@@ -7,6 +7,7 @@ import java.util.List;
 import ro.gov.httpithub.infotransport.data.Route;
 import ro.gov.httpithub.infotransport.data.Stop;
 import ro.gov.httpithub.infotransport.data.repository.RouteRepository;
+import ro.gov.httpithub.infotransport.route.usecase.GetRoute;
 import ro.gov.httpithub.infotransport.utils.schedulers.BaseSchedulerProvider;
 import rx.Observer;
 import rx.Subscription;
@@ -19,6 +20,10 @@ class RoutePresenter implements RouteContract.Presenter {
     @NonNull
     private final CompositeSubscription mSubscriptions;
 
+    private String mCityId;
+    private int mStartId;
+    private int mEndId;
+
     @NonNull
     private final BaseSchedulerProvider mSchedulerProvider;
 
@@ -30,9 +35,13 @@ class RoutePresenter implements RouteContract.Presenter {
 
     RoutePresenter(@NonNull RouteContract.View view,
                    @NonNull RouteRepository routeRepository,
+                   String cityId, int startId, int endId,
                    @NonNull BaseSchedulerProvider schedulerProvider) {
         mView = view;
         mRouteRepository = checkNotNull(routeRepository, "routeRepository cannot be null, at least send the mock one");
+        this.mCityId = cityId;
+        this.mStartId = startId;
+        this.mEndId = endId;
         mSchedulerProvider = checkNotNull(schedulerProvider, "schedulerProvider cannot be null");
 
         mSubscriptions = new CompositeSubscription();
@@ -44,7 +53,10 @@ class RoutePresenter implements RouteContract.Presenter {
     public void subscribe() {
         mSubscriptions.clear();
 
-        Subscription subscription = mRouteRepository.routes(0, 0)
+        // Todo use di to get this use case
+        GetRoute getRoute = new GetRoute(mRouteRepository);
+        GetRoute.RequestValues requestValues = new GetRoute.RequestValues(mCityId, mStartId, mEndId);
+        Subscription subscription = getRoute.executeUseCase(requestValues)
                 .subscribeOn(mSchedulerProvider.computation())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(new Observer<List<Stop>>() {
