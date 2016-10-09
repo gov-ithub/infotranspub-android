@@ -26,12 +26,24 @@
             android:layout_marginBottom="16dp" />
 
         <Spinner
+            android:layout_width="359dp"
+            android:layout_height="34dp"
+            android:id="@+id/citySpn"
+            app:layout_constraintBottom_toTopOf="@+id/startSpn"
+            android:layout_marginBottom="112dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp" />
+
+        <Spinner
             android:layout_width="356dp"
             android:layout_height="wrap_content"
             android:id="@+id/stopSpn"
             app:layout_constraintBottom_toTopOf="@+id/searchBtn"
             android:layout_marginBottom="72dp"
-            android:entries="@array/City"
             android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="16dp"
@@ -45,27 +57,12 @@
             android:id="@+id/startSpn"
             app:layout_constraintBottom_toTopOf="@+id/stopSpn"
             android:layout_marginBottom="112dp"
-            android:entries="@array/From"
             android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="16dp" />
-
-        <Spinner
-            android:layout_width="359dp"
-            android:layout_height="34dp"
-            android:id="@+id/citySpn"
-            app:layout_constraintBottom_toTopOf="@+id/startSpn"
-            android:layout_marginBottom="112dp"
-            android:entries="@array/To"
-            android:layout_marginStart="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="16dp" />
 
         <TextView
             android:text="City"

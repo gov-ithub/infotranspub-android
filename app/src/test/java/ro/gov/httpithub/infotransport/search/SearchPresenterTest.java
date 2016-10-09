@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.configuration.MockAnnotationProcessor;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -20,12 +19,12 @@ public class SearchPresenterTest {
     public void setupSearchPresenter() {
         MockitoAnnotations.initMocks(this);
 
-        mSearchPresenter = new SearchPresenter(mSearchView);
+        mSearchPresenter = new SearchPresenter(mSearchView, null, null, null);
     }
 
     @Test
     public void getRoute_showsRouteUI() {
-        mSearchPresenter.getRoute();
+        mSearchPresenter.showRoute();
 
         verify(mSearchView).showRoute();
     }

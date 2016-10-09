@@ -1,27 +1,132 @@
 package ro.gov.httpithub.infotransport.search;
 
-class SearchPresenter implements SearchContract.Presenter {
-    private SearchContract.View mSearchView;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
-    SearchPresenter(SearchContract.View searchView) {
-        this.mSearchView = searchView;
+import java.util.ArrayList;
+import java.util.List;
+
+import ro.gov.httpithub.infotransport.data.City;
+import ro.gov.httpithub.infotransport.data.Stop;
+import ro.gov.httpithub.infotransport.data.repository.CityRepository;
+import ro.gov.httpithub.infotransport.data.repository.StopsRepository;
+import ro.gov.httpithub.infotransport.utils.schedulers.BaseSchedulerProvider;
+import rx.Observer;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+class SearchPresenter implements SearchContract.Presenter {
+    private static final String TAG = "SEARCH_PRESENTER";
+
+    private List<City> mCities;
+
+    @NonNull
+    private final SearchContract.View mSearchView;
+
+    @NonNull
+    private final CityRepository mCityRepository;
+
+    @NonNull
+    private final StopsRepository mStopsRepository;
+
+    @NonNull
+    private final BaseSchedulerProvider mSchedulerProvider;
+
+    @NonNull
+    private final CompositeSubscription mSubscriptions;
+
+    SearchPresenter(@NonNull SearchContract.View searchView,
+                    @NonNull CityRepository cityRepository,
+                    @NonNull StopsRepository stopsRepository,
+                    @NonNull BaseSchedulerProvider schedulerProvider) {
+        mSearchView = searchView;
+        mCityRepository = checkNotNull(cityRepository);
+        mStopsRepository = checkNotNull(stopsRepository);
+        mSchedulerProvider = schedulerProvider;
+
+        mSubscriptions = new CompositeSubscription();
 
         mSearchView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        // do something
+        mSubscriptions.clear();
+
+        Subscription subscription = mCityRepository.get()
+                .subscribeOn(mSchedulerProvider.computation())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(new Observer<List<City>>() {
+                    @Override
+                    public void onCompleted() {
+                        // Todo: handle complete
+                        Log.e(TAG, "City request completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // Todo: handle error
+                        Log.e(TAG, e.toString());
+                    }
+
+                    @Override
+                    public void onNext(List<City> cities) {
+                        // Todo add lambda support and retrolamda, and eliminate duplication
+                        mCities = cities;
+                        List<String> cityNames = new ArrayList<>();
+                        for (City city: cities) {
+                            cityNames.add(city.getName());
+                        }
+
+                        mSearchView.populateCities(cityNames);
+                    }
+                });
+        mSubscriptions.add(subscription);
     }
 
     @Override
     public void unsubscribe() {
-        // do something
+        mSubscriptions.unsubscribe();
     }
 
     @Override
-    public void getRoute() {
-        // TODO: get the route via an api call
+    public void showRoute() {
         mSearchView.showRoute();
+    }
+
+    @Override
+    public void getStops(int position) {
+        City city = mCities.get(position);
+
+        Subscription subscription = mStopsRepository.get(city.getId())
+                .subscribeOn(mSchedulerProvider.computation())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(new Observer<List<Stop>>() {
+                    @Override
+                    public void onCompleted() {
+                        // Todo: handle complete
+                        Log.e(TAG, "City request completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // Todo: handle error
+                        Log.e(TAG, e.toString());
+                    }
+
+                    @Override
+                    public void onNext(List<Stop> stops) {
+                        // Todo add lambda support and retrolamda
+                        List<String> stopNames = new ArrayList<>();
+                        for (Stop stop : stops) {
+                            stopNames.add(stop.getName());
+                        }
+
+                        mSearchView.populateStops(stopNames);
+                    }
+                });
+        mSubscriptions.add(subscription);
     }
 }

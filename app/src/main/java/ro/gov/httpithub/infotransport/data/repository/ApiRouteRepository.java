@@ -2,24 +2,17 @@ package ro.gov.httpithub.infotransport.data.repository;
 
 import java.util.List;
 
-import retrofit2.Retrofit;
 import ro.gov.httpithub.infotransport.data.Stop;
 import rx.Observable;
 
-public class ApiRouteRepository {
+public class ApiRouteRepository extends BaseRepository implements RouteRepository {
     private String mBaseUrl;
 
     public ApiRouteRepository(String baseUrl) {
-        mBaseUrl = baseUrl;
+        super(baseUrl);
     }
 
     public Observable<List<Stop>> routes(int startStopId, int endStopId) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(mBaseUrl)
-                .build();
-
-        RouteRepository contract = retrofit.create(RouteRepository.class);
-
-        return contract.routes(startStopId, endStopId);
+        return getContract(RouteRepository.class).routes(startStopId, endStopId);
     }
 }

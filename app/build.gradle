@@ -34,6 +34,9 @@ dependencies {
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     compile "io.reactivex:rxjava:$rootProject.rxjavaVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.loggingInterceptor"
     compile "io.reactivex:rxandroid:$rootProject.rxandroidVersion"
     compile "com.android.support.constraint:constraint-layout:$rootProject.constraintLayout"
 

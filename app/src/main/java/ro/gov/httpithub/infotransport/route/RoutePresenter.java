@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 class RoutePresenter implements RouteContract.Presenter {
 
     @NonNull
-    private CompositeSubscription mSubscriptions;
+    private final CompositeSubscription mSubscriptions;
 
     @NonNull
     private final BaseSchedulerProvider mSchedulerProvider;
