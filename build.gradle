@@ -42,4 +42,5 @@ ext {
     rxjavaVersion = '1.1.8'
     rxandroidVersion = '1.2.1'
     retrofit = '2.1.0'
+    constraintLayout = '1.0.0-alpha9'
 }
