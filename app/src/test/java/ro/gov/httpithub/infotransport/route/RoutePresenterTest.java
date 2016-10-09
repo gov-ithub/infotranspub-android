@@ -6,13 +6,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import ro.gov.httpithub.infotransport.data.Route;
 import ro.gov.httpithub.infotransport.data.Stop;
 import ro.gov.httpithub.infotransport.data.repository.RouteRepository;
+import ro.gov.httpithub.infotransport.route.usecase.GetRoute;
 import ro.gov.httpithub.infotransport.utils.schedulers.ImmediateSchedulerProvider;
 import rx.Observable;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class RoutePresenterTest {
@@ -20,7 +23,7 @@ public class RoutePresenterTest {
     private RouteContract.View mRouteView;
 
     @Mock
-    private RouteRepository mRouteRepository;
+    private GetRoute mGetRoute;
 
     private RoutePresenter mRoutePresenter;
 
@@ -28,15 +31,21 @@ public class RoutePresenterTest {
     public void setupRoutePresenter() {
         MockitoAnnotations.initMocks(this);
 
-        mRoutePresenter = new RoutePresenter(mRouteView, mRouteRepository, "sibiu", "42", "43", new ImmediateSchedulerProvider());
+        mRoutePresenter = new RoutePresenter(mRouteView,
+                mGetRoute,
+                "sibiu", "42", "43",
+                new ImmediateSchedulerProvider());
     }
 
     @Test
     public void subscribe() {
-        List<Stop> mockStops = new ArrayList<>(0);
+        Route route = new Route(new ArrayList<Stop>(0));
 
-        when(mRouteRepository.routes("sibiu", "42", "43")).thenReturn(Observable.just(mockStops));
+        when(mGetRoute.executeUseCase(any(GetRoute.RequestValues.class)))
+                .thenReturn(Observable.just(route));
 
         mRoutePresenter.subscribe();
+
+        verify(mRouteView).showRoute(route);
     }
 }

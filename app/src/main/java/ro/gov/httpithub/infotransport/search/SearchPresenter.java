@@ -10,6 +10,8 @@ import ro.gov.httpithub.infotransport.data.City;
 import ro.gov.httpithub.infotransport.data.Stop;
 import ro.gov.httpithub.infotransport.data.repository.CityRepository;
 import ro.gov.httpithub.infotransport.data.repository.StopsRepository;
+import ro.gov.httpithub.infotransport.search.usecase.GetCities;
+import ro.gov.httpithub.infotransport.search.usecase.GetStops;
 import ro.gov.httpithub.infotransport.utils.schedulers.BaseSchedulerProvider;
 import rx.Observer;
 import rx.Subscription;
@@ -39,8 +41,7 @@ class SearchPresenter implements SearchContract.Presenter {
     @NonNull
     private final BaseSchedulerProvider mSchedulerProvider;
 
-    @NonNull
-    private final CompositeSubscription mSubscriptions;
+    private CompositeSubscription mSubscriptions;
 
     SearchPresenter(@NonNull SearchContract.View searchView,
                     @NonNull CityRepository cityRepository,
@@ -51,16 +52,14 @@ class SearchPresenter implements SearchContract.Presenter {
         mStopsRepository = checkNotNull(stopsRepository);
         mSchedulerProvider = schedulerProvider;
 
-        mSubscriptions = new CompositeSubscription();
-
         mSearchView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        mSubscriptions.clear();
+        mSubscriptions = new CompositeSubscription();
 
-        Subscription subscription = mCityRepository.get()
+        Subscription subscription = new GetCities(mCityRepository).executeUseCase(new GetCities.RequestValues())
                 .subscribeOn(mSchedulerProvider.computation())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(new Observer<List<City>>() {
@@ -110,7 +109,7 @@ class SearchPresenter implements SearchContract.Presenter {
         mCityPosition = position;
         City city = mCities.get(mCityPosition);
 
-        Subscription subscription = mStopsRepository.get(city.getId())
+        Subscription subscription = new GetStops(mStopsRepository).executeUseCase(new GetStops.RequestValues(city.getId()))
                 .subscribeOn(mSchedulerProvider.computation())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe(new Observer<List<Stop>>() {

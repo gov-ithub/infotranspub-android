@@ -2,11 +2,14 @@ package ro.gov.httpithub.infotransport.route.usecase;
 
 import java.util.List;
 
+import ro.gov.httpithub.infotransport.UseCase;
+import ro.gov.httpithub.infotransport.data.Route;
 import ro.gov.httpithub.infotransport.data.Stop;
 import ro.gov.httpithub.infotransport.data.repository.RouteRepository;
 import rx.Observable;
+import rx.functions.Func1;
 
-public class GetRoute {
+public class GetRoute extends UseCase<Observable<Route>, GetRoute.RequestValues> {
     public static final class RequestValues {
         private final String cityId;
 
@@ -33,7 +36,15 @@ public class GetRoute {
         mRouteRepository = routeRepository;
     }
 
-    public Observable<List<Stop>> executeUseCase(final GetRoute.RequestValues requestValues) {
-        return mRouteRepository.routes(requestValues.getCityId(), requestValues.getStartId(), requestValues.getEndId());
+    @Override
+    public Observable<Route> executeUseCase(final GetRoute.RequestValues requestValues) {
+        return mRouteRepository.routes(requestValues.getCityId(), requestValues.getStartId(), requestValues.getEndId())
+                .map(new Func1<List<Stop>, Route>() {
+                    @Override
+                    public Route call(List<Stop> stops) {
+                        return new Route(stops);
+                    }
+                });
     }
 }
+

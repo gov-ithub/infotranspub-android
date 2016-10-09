@@ -17,9 +17,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 class RoutePresenter implements RouteContract.Presenter {
 
-    @NonNull
-    private final CompositeSubscription mSubscriptions;
-
     private String mCityId;
     private String mStartId;
     private String mEndId;
@@ -28,38 +25,36 @@ class RoutePresenter implements RouteContract.Presenter {
     private final BaseSchedulerProvider mSchedulerProvider;
 
     @NonNull
-    private final RouteRepository mRouteRepository;
-
-    @NonNull
     private final RouteContract.View mView;
 
+    @NonNull
+    private final GetRoute mGetRoute;
+
+    private CompositeSubscription mSubscriptions;
+
     RoutePresenter(@NonNull RouteContract.View view,
-                   @NonNull RouteRepository routeRepository,
+                   @NonNull GetRoute getRoute,
                    String cityId, String startId, String endId,
                    @NonNull BaseSchedulerProvider schedulerProvider) {
         mView = view;
-        mRouteRepository = checkNotNull(routeRepository, "routeRepository cannot be null, at least send the mock one");
-        this.mCityId = cityId;
-        this.mStartId = startId;
-        this.mEndId = endId;
+        mCityId = cityId;
+        mStartId = startId;
+        mEndId = endId;
         mSchedulerProvider = checkNotNull(schedulerProvider, "schedulerProvider cannot be null");
-
-        mSubscriptions = new CompositeSubscription();
+        mGetRoute = checkNotNull(getRoute, "getRoute use case should be ");
 
         view.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        mSubscriptions.clear();
+        mSubscriptions = new CompositeSubscription();
 
-        // Todo use di to get this use case
-        GetRoute getRoute = new GetRoute(mRouteRepository);
         GetRoute.RequestValues requestValues = new GetRoute.RequestValues(mCityId, mStartId, mEndId);
-        Subscription subscription = getRoute.executeUseCase(requestValues)
+        Subscription subscription = mGetRoute.executeUseCase(requestValues)
                 .subscribeOn(mSchedulerProvider.computation())
                 .observeOn(mSchedulerProvider.ui())
-                .subscribe(new Observer<List<Stop>>() {
+                .subscribe(new Observer<Route>() {
                     @Override
                     public void onCompleted() {
                         // Todo: handle complete
@@ -71,8 +66,8 @@ class RoutePresenter implements RouteContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(List<Stop> stops) {
-                        mView.showRoute(new Route(stops));
+                    public void onNext(Route route) {
+                        mView.showRoute(route);
                     }
                 });
         mSubscriptions.add(subscription);
