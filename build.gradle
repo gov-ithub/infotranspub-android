@@ -39,4 +39,7 @@ ext {
     runnerVersion = '0.5'
     rulesVersion = '0.5'
     espressoVersion = '2.2.2'
+    rxjavaVersion = '1.1.8'
+    rxandroidVersion = '1.2.1'
+    retrofit = '2.1.0'
 }

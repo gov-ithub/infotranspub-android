@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import ro.gov.httpithub.infotransport.R;
+import ro.gov.httpithub.infotransport.data.repository.MockRouteRepository;
 import ro.gov.httpithub.infotransport.utils.ActivityUtils;
+import ro.gov.httpithub.infotransport.utils.schedulers.SchedulerProvider;
 
 public class RouteActivity extends AppCompatActivity {
     @Override
@@ -23,6 +25,7 @@ public class RouteActivity extends AppCompatActivity {
                     getSupportFragmentManager(), routeFragment, R.id.contentFrame);
         }
 
-        new RoutePresenter(routeFragment);
+        // Todo: use dagger2 for injection
+        new RoutePresenter(routeFragment, new MockRouteRepository(), SchedulerProvider.getInstance());
     }
 }

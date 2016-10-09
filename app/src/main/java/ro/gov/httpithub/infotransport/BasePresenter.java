@@ -1,5 +1,7 @@
 package ro.gov.httpithub.infotransport;
 
 public interface BasePresenter {
-    void start();
+    void subscribe();
+
+    void unsubscribe();
 }

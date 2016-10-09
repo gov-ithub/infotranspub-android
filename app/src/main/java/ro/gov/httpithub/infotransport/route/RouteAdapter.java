@@ -7,12 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ro.gov.httpithub.infotransport.R;
+import ro.gov.httpithub.infotransport.data.Route;
+import ro.gov.httpithub.infotransport.data.Stop;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> {
     private static final String TAG = "RouteAdapter";
 
-    private String[] mDataSet;
+    private List<Stop> mRoutes;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
@@ -34,8 +41,8 @@ class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> {
         }
     }
 
-    RouteAdapter(String[] dataSet) {
-        mDataSet = dataSet;
+    RouteAdapter() {
+        mRoutes = new ArrayList<>(0);
     }
 
     @Override
@@ -48,11 +55,21 @@ class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.getTextView().setText(mDataSet[position]);
+        Stop route = mRoutes.get(position);
+        holder.getTextView().setText(route.getName());
     }
 
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mRoutes.size();
+    }
+
+    void replaceData(Route route) {
+        setList(route.getStops());
+        notifyDataSetChanged();
+    }
+
+    private void setList(List<Stop> routes) {
+        mRoutes = checkNotNull(routes);
     }
 }

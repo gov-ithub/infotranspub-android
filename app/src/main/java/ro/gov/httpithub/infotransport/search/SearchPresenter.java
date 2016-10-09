@@ -10,7 +10,12 @@ class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void start() {
+    public void subscribe() {
+        // do something
+    }
+
+    @Override
+    public void unsubscribe() {
         // do something
     }
 
